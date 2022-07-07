@@ -30,16 +30,16 @@ const postsArray =
     authorPicture : 'https://unsplash.it/300/300?image=15',
     date : '07/20/2021',
     postText : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
-    postImage : 'https://unsplash.it/300/300?image=17' ,
+    postImage : 'https://unsplash.it/300/200?image=17' ,
     likesNumber : 80 ,
 },
 {
     id : 2 ,
     authorName : 'Ralph Arnold' ,
-    authorPicture : 'https://unsplash.it/300/300?image=20',
+    authorPicture : 'https://unsplash.it/300/300?image=13',
     date : '08/20/2021',
     postText : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
-    postImage : 'https://unsplash.it/300/300?image=18' ,
+    postImage : 'https://unsplash.it/300/200?image=12' ,
     likesNumber : 58 ,
 },
 ]
@@ -52,3 +52,59 @@ console.log(container)
 
 
 // ciclo for per girare l'array
+let posts = ''
+for(let i=0 ; i<postsArray.length ; i++){
+    const {id, authorName, authorPicture, date, postText, postImage, likesNumber} = postsArray[i];
+    currentPost = postsArray[i];
+    posts += `<div class="post">
+    <div class="post__header">
+      <div class="post-meta">
+        <div class="post-meta__icon">
+          <img class="profile-pic" src="${authorPicture}" alt="${authorName}" />
+        </div>
+        <div class="post-meta__data">
+          <div class="post-meta__author">${authorName}</div>
+          <div class="post-meta__time">${date}</div>
+        </div>
+      </div>
+    </div>
+    <div class="post__text">
+      ${postText}
+    </div>
+    <div class="post__image">
+      <img src="${postImage}" alt="" />
+    </div>
+    <div class="post__footer">
+      <div class="likes js-likes">
+        <div class="likes__cta">
+          <a class="like-button js-like-button" href="#" data-postid="${id}">
+            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+            <span class="like-button__label">Mi Piace</span>
+          </a>
+        </div>
+        <div class="likes__counter">Piace a <b id="like-counter-${id}" class="js-likes-counter">${likesNumber}</b> persone</div>
+      </div>
+    </div>
+  </div>`
+}
+
+
+container.innerHTML = posts;
+
+
+//# MILESTONE-3
+
+// prendo il bottone dal dom
+const button = document.querySelectorAll('.like-button');
+console.log(button);
+for (i=0 ; i< button.length ; i++){
+    let currentButtonNode = button[i];
+    currentPost = postsArray[i];
+    console.log(currentPost);
+    currentButtonNode.addEventListener('click' , function(){
+        currentButtonNode.classList.add('like-button--liked');
+        currentPost.likesNumber += 1  ;
+        console.log(currentPost.likesNumber);
+    })
+}
+
